@@ -1,0 +1,42 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+h1 {
+    margin: 10px;
+    
+}
+
+.chess_container {
+    display: grid;
+    grid-template-columns: 1fr;
+    border: 1px solid black;
+    /* width: 50%; */
+    /* height: 70vh; */
+}
+
+.chess_row {
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+}
+
+.chess_box {
+    margin: .5px;
+    width: 4.8rem;
+    height: 4.8rem;
+    border: 1px solid black;
+} 
+
