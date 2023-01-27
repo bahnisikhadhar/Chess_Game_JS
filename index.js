@@ -1,8 +1,10 @@
 const chessBox = document.querySelectorAll(".chess_box");
 
-chessBox.forEach((box)=>{
-    // box.addEventListener("click",(e)=>{
-    //     console.log(e.target.innerText);
+chessBox.forEach((image)=>{
+    // image.addEventListener("click",(e)=>{
+    //     console.log(image.innerText);
     // })
-   
+    
+    
+    
 })

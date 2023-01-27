@@ -23,20 +23,28 @@ h1 {
     display: grid;
     grid-template-columns: 1fr;
     border: 1px solid black;
-    /* width: 50%; */
-    /* height: 70vh; */
 }
 
 .chess_row {
     display: flex;
-    /* justify-content: space-between; */
     align-items: center;
 }
 
 .chess_box {
-    margin: .5px;
     width: 4.8rem;
     height: 4.8rem;
     border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 } 
+.box1:nth-child(odd), .box2:nth-child(even), .box3:nth-child(odd), .box4:nth-child(even), .box5:nth-child(odd), .box6:nth-child(even), .box7:nth-child(odd), .box8:nth-child(even){
+    background-color: rgb(104, 62, 7);
+}
+.box1:nth-child(even), .box2:nth-child(odd), .box3:nth-child(even), .box4:nth-child(odd), .box5:nth-child(even), .box6:nth-child(odd), .box7:nth-child(even), .box8:nth-child(odd){
+    background-color: rgb(241, 215, 182);
+}
+img {
+    width: 50%;
+}
 
