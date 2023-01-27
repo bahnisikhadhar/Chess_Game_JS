@@ -13,10 +13,17 @@ body {
     flex-direction: column;
     overflow-x: hidden;
 }
-
-h1 {
-    margin: 10px;
-    
+h1{
+    margin: 1rem auto;
+}
+.turn_container{
+    /* border: 1px solid black; */
+    width: 20%;
+    padding: 1rem;
+    text-align: center;
+    background-color: burlywood;
+    border-radius: 10px;
+    margin-bottom: 1rem;
 }
 
 .chess_container {
@@ -32,19 +39,13 @@ h1 {
 
 .chess_box {
     width: 4.8rem;
-    height: 4.8rem;
+    height: 4.5rem;
     border: 1px solid black;
     font-size: 0px;
     display: flex;
     justify-content: center;
     align-items: center;
 } 
-.box1:nth-child(odd), .box2:nth-child(even), .box3:nth-child(odd), .box4:nth-child(even), .box5:nth-child(odd), .box6:nth-child(even), .box7:nth-child(odd), .box8:nth-child(even){
-    background-color: rgb(104, 62, 7);
-}
-.box1:nth-child(even), .box2:nth-child(odd), .box3:nth-child(even), .box4:nth-child(odd), .box5:nth-child(even), .box6:nth-child(odd), .box7:nth-child(even), .box8:nth-child(odd){
-    background-color: rgb(241, 215, 182);
-}
 img {
     width: 50%;
     cursor: pointer;
