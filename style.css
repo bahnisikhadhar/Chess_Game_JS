@@ -12,12 +12,13 @@ body {
     align-items: center;
     flex-direction: column;
     overflow-x: hidden;
+    /* background-color: rgb(248, 217, 221); */
+    /* background-color: rgb(240, 240, 65); */
 }
 h1{
     margin: 1rem auto;
 }
 .turn_container{
-    /* border: 1px solid black; */
     width: 20%;
     padding: 1rem;
     text-align: center;
@@ -46,6 +47,9 @@ h1{
     justify-content: center;
     align-items: center;
 } 
+.chess_box:hover{
+    transform: scale(1.1);
+}
 img {
     width: 50%;
     cursor: pointer;

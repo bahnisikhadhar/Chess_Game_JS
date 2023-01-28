@@ -41,6 +41,7 @@ function colorBackground() {
         }
         if (sumLstFrnt % 2 !== 0) {
             color.style.backgroundColor = 'rgb(104, 62, 7)';
+            
         }
 
     })
@@ -50,17 +51,17 @@ colorBackground();
 // ********************************************************************************************************
 
 function backgroundColorChange() {
-    chessBox.forEach(i1 => {
-        if (i1.style.backgroundColor == 'pink') {
+    chessBox.forEach(ele1 => {
+        if (ele1.style.backgroundColor == 'rgb(240, 240, 65)') {
 
-            chessBox.forEach(i2 => {
+            chessBox.forEach(ele2 => {
 
-                if (i2.style.backgroundColor == 'green' && i2.innerText.length !== 0) {
+                if (ele2.style.backgroundColor == 'green' && ele2.innerText.length !== 0) {
 
 
-                    greenText = i2.innerText;
+                    greenText = ele2.innerText;
 
-                    pinkText = i1.innerText;
+                    pinkText = ele1.innerText;
 
                     // console.log(pinkText); 
                     // console.log(greenText);
@@ -71,7 +72,7 @@ function backgroundColorChange() {
                     // console.log(pinkColor)
                     // console.log(greenColor)
 
-                    getId = i2.id;
+                    getId = ele2.id;
                     arr = getId.split("");
                     arr.shift();
                     lastId = Number(arr.pop());
@@ -79,15 +80,18 @@ function backgroundColorChange() {
                     sumLstFrnt = lastId + frontId;
 
                     if (sumLstFrnt % 2 == 0 && pinkColor == greenColor) {
-                        i2.style.backgroundColor = 'rgb(241, 215, 182)';
+                        ele2.style.backgroundColor = 'rgb(241, 215, 182)';
                     }
                     if (sumLstFrnt % 2 !== 0 && pinkColor == greenColor) {
-                        i2.style.backgroundColor = 'rgb(104, 62, 7)';
+                        ele2.style.backgroundColor = 'rgb(104, 62, 7)';
                     }
 
                     if (pinkColor == greenColor) { // if they are of same team
-                        i2.style.backgroundColor = 'red';
+                        ele2.style.backgroundColor = 'gray';
                     }
+                    // if (pinkColor !== greenColor) { // if they are of different team
+                    //     ele2.style.backgroundColor = 'red';
+                    // }
                 }
             })
         }
@@ -107,7 +111,7 @@ chessBox.forEach((box) => {
         else if (box.style.backgroundColor == 'green' && box.innerText.length !== 0) {
 
             chessBox.forEach(i => {  // it will also work for attack
-                if (i.style.backgroundColor == 'pink') {
+                if (i.style.backgroundColor == 'rgb(240, 240, 65)') {
                     pinkId = i.id;
                     pinkText = i.innerText;
 
@@ -136,13 +140,18 @@ chessBox.forEach((box) => {
 //------------------------------------------FUNCTION FOR TURNS AND PATHS STARTS--------------------------------
 
         function whosTurn(firstLetter) { 
+            // calling functions for individual element movement
+
         pawnMovement(lastId,frontId,sumLstFrnt,firstLetter,box);
-        kingMovement(lastId,frontId,sumLstFrnt,firstLetter,box);          
+        kingMovement(lastId,frontId,sumLstFrnt,firstLetter,box);  
+        rookMovement(lastId,frontId,sumLstFrnt,firstLetter,box); 
+        bishopMovement(lastId,frontId,sumLstFrnt,firstLetter,box);
+        knightMovement(lastId,frontId,sumLstFrnt,firstLetter,box);
                 
     }
 
 
-//**************************************************TOGGLING THE TEXT FOR WHO'S TURN***************************/
+//**********************************************TOGGLING THE TEXT FOR WHO'S TURN***************************/
 
         if (tog % 2 !== 0) {
             turnShow.innerText = "White's Turn";
@@ -161,7 +170,7 @@ chessBox.forEach((box) => {
 
 function pawnMovement(lastId,frontId,sumLstFrnt,firstLetter,box){
     if (box.innerText == `${firstLetter}pawn`) {
-        box.style.backgroundColor = "pink";
+        box.style.backgroundColor = "rgb(240, 240, 65)";
 
         if (tog % 2 !== 0 && frontId < 800) { // if it's turn for white and if it's not the end line of black
 
@@ -206,62 +215,214 @@ function pawnMovement(lastId,frontId,sumLstFrnt,firstLetter,box){
 //***********************************************FOR KING MOVEMENT****************************************/
 
    function kingMovement(lastId,frontId,sumLstFrnt,firstLetter,box){
-     if (box.innerText == `${firstLetter}king`) {
-       if (lastId < 8) {
-            document.getElementById(`b${sumLstFrnt + 1}`).style.backgroundColor = 'green'; // for white
-
-        }
-        if (lastId > 1) {
-
-            document.getElementById(`b${sumLstFrnt - 1}`).style.backgroundColor = 'green' // for black
-        }
-        if (frontId < 800) {
-
-            document.getElementById(`b${sumLstFrnt + 100}`).style.backgroundColor = 'green'
-        }
-        if (frontId > 100) {
-
-            document.getElementById(`b${sumLstFrnt - 100}`).style.backgroundColor = 'green'
+     if (box.innerText == `${firstLetter}king`) { 
+       if (lastId < 8) {  // for right box selection both black & white
+            document.getElementById(`b${sumLstFrnt + 1}`).style.backgroundColor = 'green'; 
         }
 
-        if (frontId > 100 && lastId < 8) {
-
-            document.getElementById(`b${sumLstFrnt - 100 + 1}`).style.backgroundColor = 'green'
+        if (lastId > 1) { // for left box selection both black & white
+          document.getElementById(`b${sumLstFrnt - 1}`).style.backgroundColor = 'green';
         }
-        if (frontId > 100 && lastId > 1) {
 
-            document.getElementById(`b${sumLstFrnt - 100 - 1}`).style.backgroundColor = 'green'
+        if (frontId < 800) { // for white, front box selection
+          document.getElementById(`b${sumLstFrnt + 100}`).style.backgroundColor = 'green'
         }
-        if (frontId < 800 && lastId < 8) {
 
+        if (frontId > 100) { //for black, front box selection
+          document.getElementById(`b${sumLstFrnt - 100}`).style.backgroundColor = 'green'
+        }
+
+        if (frontId > 100 && lastId < 8) { // for black right diagonal box
+           document.getElementById(`b${sumLstFrnt - 100 + 1}`).style.backgroundColor = 'green'
+        }
+
+        if (frontId > 100 && lastId > 1) { // for black left diagonal box
+           document.getElementById(`b${sumLstFrnt - 100 - 1}`).style.backgroundColor = 'green'
+        }
+
+        if (frontId < 800 && lastId < 8) { // for white right diagonal box
             document.getElementById(`b${sumLstFrnt + 100 + 1}`).style.backgroundColor = 'green'
         }
-        if (frontId < 800 && lastId > 1) {
 
+        if (frontId < 800 && lastId > 1) { // for white left diagonal box
             document.getElementById(`b${sumLstFrnt + 100 - 1}`).style.backgroundColor = 'green'
         }
 
-        box.style.backgroundColor = 'pink';
+        box.style.backgroundColor = 'rgb(240, 240, 65)';
 
     }
    }
+//************************************************FOR ROOK MOVEMENT******************************************/
+
+ function rookMovement(lastId,frontId,sumLstFrnt,firstLetter,box){
+    if (box.innerText == `${firstLetter}rook`) {
+
+        for (let i = 1; i < 9; i++) { // for white vertical selection
+
+            if ((sumLstFrnt + i * 100) < 900 && document.getElementById(`b${sumLstFrnt + i * 100}`).innerText == 0) {
+                document.getElementById(`b${sumLstFrnt + i * 100}`).style.backgroundColor = 'green';
+            }
+            else if ((sumLstFrnt + i * 100) < 900 && document.getElementById(`b${sumLstFrnt + i * 100}`).innerText !== 0) {
+                document.getElementById(`b${sumLstFrnt + i * 100}`).style.backgroundColor = 'green';
+                break;
+            }
+        }
+
+        for (let i = 1; i < 9; i++) { // for black vertical selection
+
+            if ((sumLstFrnt - i * 100) > 100 && document.getElementById(`b${sumLstFrnt - i * 100}`).innerText == 0) {
+                document.getElementById(`b${sumLstFrnt - i * 100}`).style.backgroundColor = 'green'
+            }
+            else if ((sumLstFrnt - i * 100) > 100 && document.getElementById(`b${sumLstFrnt - i * 100}`).innerText !== 0) {
+                document.getElementById(`b${sumLstFrnt - i * 100}`).style.backgroundColor = 'green'
+                break
+            }
+        }
+
+        // for (let i = 1; i < 9; i++) {
+
+        //     if ((sumLstFrnt + i) < (frontId + 9) && document.getElementById(`b${sumLstFrnt + i}`).innerText == 0) {
+        //         document.getElementById(`b${sumLstFrnt + i}`).style.backgroundColor = 'green'
+        //     }
+        //     else if ((sumLstFrnt + i) < (frontId + 9) && document.getElementById(`b${sumLstFrnt + i}`).innerText !== 0) {
+        //         document.getElementById(`b${sumLstFrnt + i}`).style.backgroundColor = 'green'
+        //         break
+        //     }
+        // }
+
+        for (let i = 1; i < 9; i++) { // for white and black horizontal selection
+
+            if ((sumLstFrnt - i) > (frontId) && document.getElementById(`b${sumLstFrnt - i}`).innerText == 0) {
+                document.getElementById(`b${sumLstFrnt - i}`).style.backgroundColor = 'green';
+            }
+            else if ((sumLstFrnt - i) > (frontId) && document.getElementById(`b${sumLstFrnt - i}`).innerText !== 0) {
+                document.getElementById(`b${sumLstFrnt - i}`).style.backgroundColor = 'green';
+                break;
+            }
+        }
+
+        box.style.backgroundColor = 'rgb(240, 240, 65)';
+    }
+
+
+ }
+
+//************************************************FOR BISHOP MOVEMENT****************************************/
+
+function bishopMovement(lastId,frontId,sumLstFrnt,firstLetter,box){
+    if (box.innerText == `${firstLetter}bishop`) {
+
+
+        for (let i = 1; i < 9; i++) { // right diagonal box selection for white
+            if (i < (900 - frontId) / 100 && i < 9 - lastId && document.getElementById(`b${sumLstFrnt + i * 100 + i}`).innerText.length == 0) {
+                document.getElementById(`b${sumLstFrnt + i * 100 + i}`).style.backgroundColor = 'green'
+            }
+            else if (i < (900 - frontId) / 100 && i < 9 - lastId && document.getElementById(`b${sumLstFrnt + i * 100 + i}`).innerText.length !== 0) {
+                document.getElementById(`b${sumLstFrnt + i * 100 + i}`).style.backgroundColor = 'green'
+                break
+            }
+        }
+
+
+        for (let i = 1; i < 9; i++) { // right diagonal box selection for black
+            if (i < frontId / 100 && i < 9 - lastId && document.getElementById(`b${sumLstFrnt - i * 100 + i}`).innerText.length == 0) {
+                document.getElementById(`b${sumLstFrnt - i * 100 + i}`).style.backgroundColor = 'green';
+            }
+            else if (i < frontId / 100 && i < 9 - lastId && document.getElementById(`b${sumLstFrnt - i * 100 + i}`).innerText.length !== 0) {
+                document.getElementById(`b${sumLstFrnt - i * 100 + i}`).style.backgroundColor = 'green';
+                break;
+            }
+        }
+
+
+        for (let i = 1; i < 9; i++) { // left diagonal box selection for white
+            if (i < (900 - frontId) / 100 && i < lastId && document.getElementById(`b${sumLstFrnt + i * 100 - i}`).innerText.length == 0) {
+                document.getElementById(`b${sumLstFrnt + i * 100 - i}`).style.backgroundColor = 'green';
+            }
+            else if (i < (900 - frontId) / 100 && i < lastId && document.getElementById(`b${sumLstFrnt + i * 100 - i}`).innerText.length !== 0) {
+                document.getElementById(`b${sumLstFrnt + i * 100 - i}`).style.backgroundColor = 'green';
+                break;
+            }
+
+        }
+
+
+        for (let i = 1; i < 9; i++) { // left diagonal box selection for black
+            if (i < frontId / 100 && i < lastId && document.getElementById(`b${sumLstFrnt - i * 100 - i}`).innerText.length == 0) {
+                document.getElementById(`b${sumLstFrnt - i * 100 - i}`).style.backgroundColor = 'green';
+            }
+            else if (i < frontId / 100 && i < lastId && document.getElementById(`b${sumLstFrnt - i * 100 - i}`).innerText.length !== 0) {
+                document.getElementById(`b${sumLstFrnt - i * 100 - i}`).style.backgroundColor = 'green';
+                break;
+            }
+        }
+
+
+
+        box.style.backgroundColor = 'rgb(240, 240, 65)';
+
+    }
+
+}
+
+//*********************************************FOR KNIGHT MOVEMENT****************************************/
+
+function knightMovement(lastId,frontId,sumLstFrnt,firstLetter,box){
+    if (box.innerText == `${firstLetter}knight`) {
+
+        if (lastId < 7 && frontId < 800) { // for right box front next line 
+            document.getElementById(`b${sumLstFrnt + 100 + 2}`).style.backgroundColor = 'green';
+        }
+
+        if (lastId < 7 && frontId > 200) { // for right box back previous line
+            document.getElementById(`b${sumLstFrnt - 100 + 2}`).style.backgroundColor = 'green';
+        }
+
+        if (lastId < 8 && frontId < 700) { // for right box front next to next line
+            document.getElementById(`b${sumLstFrnt + 200 + 1}`).style.backgroundColor = 'green';    
+        }
+
+        if (lastId > 1 && frontId < 700) { // for left box front next to next line
+            document.getElementById(`b${sumLstFrnt + 200 - 1}`).style.backgroundColor = 'green';
+        }
+
+        if (lastId > 2 && frontId < 800) { // for left box front next line 
+            document.getElementById(`b${sumLstFrnt + 100 - 2 }`).style.backgroundColor = 'green';
+        }
+
+        if (lastId > 2 && frontId > 100) { // for left box back previous line
+            document.getElementById(`b${sumLstFrnt - 100 - 2 }`).style.backgroundColor = 'green';
+        }
+
+        if (lastId < 8 && frontId > 200) { // for right box back previous to previous line
+            document.getElementById(`b${sumLstFrnt - 200 + 1}`).style.backgroundColor = 'green';
+        }
+
+        if (lastId > 1 && frontId > 200) { // for left box back previous to previous line
+            document.getElementById(`b${sumLstFrnt - 200 - 1}`).style.backgroundColor = 'green';
+        }
+
+        box.style.backgroundColor = 'rgb(240, 240, 65)';
+
+    }
+}
 //**********************************************MOVING THE ELEMENTS*******************************************
 
-chessBox.forEach(hathiTest => {
+chessBox.forEach(box => {
 
-    hathiTest.addEventListener('click', function () {
+    box.addEventListener('click', function () {
 
-        if (hathiTest.style.backgroundColor == 'pink') {
+        if (box.style.backgroundColor == 'rgb(240, 240, 65)') {
 
-            pinkId = hathiTest.id;
-            pinkText = hathiTest.innerText;
+            pinkId = box.id;
+            pinkText = box.innerText;
 
-            chessBox.forEach(hathiTest2 => {
+            chessBox.forEach(box2 => {
 
-                hathiTest2.addEventListener('click', function () {
-                    if (hathiTest2.style.backgroundColor == 'green' && hathiTest2.innerText.length == 0) {
+                box2.addEventListener('click', function () {
+                    if (box2.style.backgroundColor == 'green' && box2.innerText.length == 0) {
                         document.getElementById(pinkId).innerText = '';
-                        hathiTest2.innerText = pinkText;
+                        box2.innerText = pinkText;
                         colorBackground();
                         imageAdd();
 
