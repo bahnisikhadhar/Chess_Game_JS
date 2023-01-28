@@ -4,11 +4,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style.css">
     <title>Chess Game</title>
 </head>
 <body>
-    <h1>Chess Game</h1>
+    <div class="head_container">
+        <div class="icon_container">
+            <!-- <h2>sound off</h2> -->
+            <button>Restart</button>
+        </div>
+        <h1>Chess Game</h1>
+    </div>
+   
     <div class="turn_container">
     <h2 id="tog">White's Turn</h2>
     </div>
@@ -98,6 +108,20 @@
         </div>
 
     </ul>
+
+    <div class="winbox_container_white">
+        <div class="winbox">
+        <h1 class="heading">White Wins!!!</h1>
+        </div>
+    </div>
+    <div class="winbox_container_black">
+        <div class="winbox">
+        <h1 class="heading">Black Wins!!!</h1>
+        </div>
+    </div>
+      
+    <audio src="jumpsound.mpeg" class="move_sound"></audio>
+    <audio src="clapFinal.mpeg" class="win_sound"></audio>
 
     <script src="index.js"></script>
 </body>

@@ -1,7 +1,22 @@
 const chessBox = document.querySelectorAll(".chess_box");
 const turnShow = document.getElementById("tog");
+const winboxWhite = document.querySelector(".winbox_container_white");
+const winboxBlack = document.querySelector(".winbox_container_black");
+const moveSound = document.querySelector(".move_sound");
+const winSound = document.querySelector(".win_sound");
+const turnShowContainer = document.querySelector(".turn_container");
+const button = document.querySelector("button");
 
+button.addEventListener("click",()=>{
+    location.reload();
+})
 
+winboxWhite.addEventListener("click",()=>{
+    winboxWhite.style.display = "none";
+})
+winboxBlack.addEventListener("click",()=>{
+    winboxBlack.style.display = "none";
+})
 // //**************************************ADDING IMAGES HERE****************************************************/
 
 function imageAdd() {
@@ -147,6 +162,7 @@ chessBox.forEach((box) => {
         rookMovement(lastId,frontId,sumLstFrnt,firstLetter,box); 
         bishopMovement(lastId,frontId,sumLstFrnt,firstLetter,box);
         knightMovement(lastId,frontId,sumLstFrnt,firstLetter,box);
+        queenMovement(lastId,frontId,sumLstFrnt,firstLetter,box);
                 
     }
 
@@ -155,13 +171,17 @@ chessBox.forEach((box) => {
 
         if (tog % 2 !== 0) {
             turnShow.innerText = "White's Turn";
+            turnShowContainer.style.backgroundColor = "burlywood";
             whosTurn("W");
         } else {
             turnShow.innerText = "Black's Turn";
+            turnShowContainer.style.backgroundColor = "black";
+            turnShowContainer.style.color = "white";
             whosTurn("B");
         }
 
         backgroundColorChange();
+        win();
 
     })
 })
@@ -406,6 +426,109 @@ function knightMovement(lastId,frontId,sumLstFrnt,firstLetter,box){
 
     }
 }
+
+//*****************************************FOR QUEEN MOVEMENT************************************************/
+
+function queenMovement(lastId,frontId,sumLstFrnt,firstLetter,box){
+    if (box.innerText == `${firstLetter}queen`) {
+
+
+        for (let i = 1; i < 9; i++) { // for exact front box/boxes (white)
+
+            if ((sumLstFrnt + i * 100) < 900 && document.getElementById(`b${sumLstFrnt + i * 100}`).innerText == 0) {
+                document.getElementById(`b${sumLstFrnt + i * 100}`).style.backgroundColor = 'green';
+            }
+            else if ((sumLstFrnt + i * 100) < 900 && document.getElementById(`b${sumLstFrnt + i * 100}`).innerText !== 0) {
+                document.getElementById(`b${sumLstFrnt + i * 100}`).style.backgroundColor = 'green';
+                break;
+            }
+        }
+
+        for (let i = 1; i < 9; i++) { // for exact front box/boxes (black)
+
+            if ((sumLstFrnt - i * 100) > 100 && document.getElementById(`b${sumLstFrnt - i * 100}`).innerText == 0) {
+                document.getElementById(`b${sumLstFrnt - i * 100}`).style.backgroundColor = 'green';
+            }
+            else if ((sumLstFrnt - i * 100) > 100 && document.getElementById(`b${sumLstFrnt - i * 100}`).innerText !== 0) {
+                document.getElementById(`b${sumLstFrnt - i * 100}`).style.backgroundColor = 'green';
+                break;
+            }
+        }
+
+        for (let i = 1; i < 9; i++) { // for right box both white and black
+
+            if ((sumLstFrnt + i) < (frontId + 9) && document.getElementById(`b${sumLstFrnt + i}`).innerText == 0) {
+                document.getElementById(`b${sumLstFrnt + i}`).style.backgroundColor = 'green';
+            }
+            else if ((sumLstFrnt + i) < (frontId + 9) && document.getElementById(`b${sumLstFrnt + i}`).innerText !== 0) {
+                document.getElementById(`b${sumLstFrnt + i}`).style.backgroundColor = 'green';
+                break;
+            }
+        }
+
+        for (let i = 1; i < 9; i++) { // for left box both white and black
+
+            if ((sumLstFrnt - i) > (frontId) && document.getElementById(`b${sumLstFrnt - i}`).innerText == 0) {
+                document.getElementById(`b${sumLstFrnt - i}`).style.backgroundColor = 'green';
+            }
+            else if ((sumLstFrnt - i) > (frontId) && document.getElementById(`b${sumLstFrnt - i}`).innerText !== 0) {
+                document.getElementById(`b${sumLstFrnt - i}`).style.backgroundColor = 'green';
+                break;
+            }
+        }
+
+
+
+        for (let i = 1; i < 9; i++) { // for right diagonal box (white)
+            if (i < (900 - frontId) / 100 && i < 9 - lastId && document.getElementById(`b${sumLstFrnt + i * 100 + i}`).innerText.length == 0) {
+                document.getElementById(`b${sumLstFrnt + i * 100 + i}`).style.backgroundColor = 'green';
+            }
+            else if (i < (900 - frontId) / 100 && i < 9 - lastId  && document.getElementById(`b${sumLstFrnt + i * 100 + i}`).innerText.length !== 0) {
+                document.getElementById(`b${sumLstFrnt + i * 100 + i}`).style.backgroundColor = 'green';
+                break;
+            }
+        }
+
+
+        for (let i = 1; i < 9; i++) {  // for right diagonal box (black)
+            if (i < frontId / 100 && i < 9 - lastId && document.getElementById(`b${sumLstFrnt - i * 100 + i}`).innerText.length == 0) {
+                document.getElementById(`b${sumLstFrnt - i * 100 + i}`).style.backgroundColor = 'green';
+            }
+            else if (i < frontId / 100 && i < 9 - lastId && document.getElementById(`b${sumLstFrnt - i * 100 + i}`).innerText.length !== 0) {
+                document.getElementById(`b${sumLstFrnt - i * 100 + i}`).style.backgroundColor = 'green';
+                break;
+            }
+        }
+
+
+        for (let i = 1; i < 9; i++) { // for left diagonal box (white)
+            if (i < (900 - frontId) / 100 && i < lastId && document.getElementById(`b${sumLstFrnt + i * 100 - i}`).innerText.length == 0) {
+                document.getElementById(`b${sumLstFrnt + i * 100 - i}`).style.backgroundColor = 'green';
+            }
+            else if (i < (900 - frontId) / 100 && i < lastId && document.getElementById(`b${sumLstFrnt + i * 100 - i}`).innerText.length !== 0) {
+                document.getElementById(`b${sumLstFrnt + i * 100 - i}`).style.backgroundColor = 'green';
+                break;
+            }
+
+        }
+
+
+        for (let i = 1; i < 9; i++) { // for left diagonal box (black)
+            if (i < frontId / 100 && i < lastId && document.getElementById(`b${sumLstFrnt - i * 100 - i}`).innerText.length == 0) {
+                document.getElementById(`b${sumLstFrnt - i * 100 - i}`).style.backgroundColor = 'green';
+            }
+            else if (i < frontId / 100 && i < lastId && document.getElementById(`b${sumLstFrnt - i * 100 - i}`).innerText.length !== 0) {
+                document.getElementById(`b${sumLstFrnt - i * 100 - i}`).style.backgroundColor = 'green';
+                break;
+            }
+        }
+
+
+
+        box.style.backgroundColor = 'rgb(240, 240, 65)';
+
+    }
+}
 //**********************************************MOVING THE ELEMENTS*******************************************
 
 chessBox.forEach(box => {
@@ -425,7 +548,7 @@ chessBox.forEach(box => {
                         box2.innerText = pinkText;
                         colorBackground();
                         imageAdd();
-
+                        moveSound.play();
                     }
 
                 })
@@ -436,8 +559,31 @@ chessBox.forEach(box => {
     })
 
 })
+//********************************************************************************************** */
+function win(){
+let numOfKings = 0;
 
 
+chessBox.forEach(box => {
+    if (box.innerText == 'Wking' || box.innerText == 'Bking') {
+        numOfKings++;
+    }
+
+})
+
+if (numOfKings == 1) {
+        if (tog % 2 == 0) {
+            // alert('White Wins !!');
+            winboxWhite.style.display = "flex";
+            winSound.play();
+        }
+        else if (tog % 2 !== 0) {
+            // alert('Black Wins !!');
+            winboxBlack.style.display = "flex";
+            winSound.play();
+        }   
+}
+}
 //*************************************PREVENT SELECTING MULTIPLE ELEMENTS*******************************
 let count = 0;
 chessBox.forEach(ele => {
