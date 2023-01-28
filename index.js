@@ -13,9 +13,11 @@ button.addEventListener("click",()=>{
 
 winboxWhite.addEventListener("click",()=>{
     winboxWhite.style.display = "none";
+    location.reload();
 })
 winboxBlack.addEventListener("click",()=>{
     winboxBlack.style.display = "none";
+    location.reload();
 })
 // //**************************************ADDING IMAGES HERE****************************************************/
 
@@ -573,12 +575,10 @@ chessBox.forEach(box => {
 
 if (numOfKings == 1) {
         if (tog % 2 == 0) {
-            // alert('White Wins !!');
             winboxWhite.style.display = "flex";
             winSound.play();
         }
         else if (tog % 2 !== 0) {
-            // alert('Black Wins !!');
             winboxBlack.style.display = "flex";
             winSound.play();
         }   
