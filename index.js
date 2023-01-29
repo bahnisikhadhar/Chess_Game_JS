@@ -6,6 +6,16 @@ const moveSound = document.querySelector(".move_sound");
 const winSound = document.querySelector(".win_sound");
 const turnShowContainer = document.querySelector(".turn_container");
 const button = document.querySelector("button");
+const muteContainer = document.querySelector(".mute");
+const soundOn = document.querySelector(".fa-volume-off");
+const soundOff = document.querySelector(".fa-volume-xmark");
+
+//************************************************GENERAL JS FOR OTHER PARTS***************************************/
+
+muteContainer.addEventListener("click",()=>{
+ soundOff.classList.toggle("display_none");
+ soundOn.classList.toggle("display_none");
+})
 
 button.addEventListener("click",()=>{
     location.reload();
@@ -77,17 +87,10 @@ function backgroundColorChange() {
 
 
                     greenText = ele2.innerText;
-
                     pinkText = ele1.innerText;
-
-                    // console.log(pinkText); 
-                    // console.log(greenText);
 
                     pinkColor = ((Array.from(pinkText)).shift()).toString();
                     greenColor = ((Array.from(greenText)).shift()).toString();
-                    
-                    // console.log(pinkColor)
-                    // console.log(greenColor)
 
                     getId = ele2.id;
                     arr = getId.split("");
@@ -143,18 +146,18 @@ chessBox.forEach((box) => {
         }
 
 
-        getId = box.id
+        getId = box.id;
         arr = getId.split("");
         arr.shift();
-        lastId = Number(arr.pop()); // aside
+        lastId = Number(arr.pop()); 
         arr.push('0');
-        frontId = Number(arr.join('')) // aup
+        frontId = Number(arr.join('')) 
         console.log(frontId);
         sumLstFrnt = lastId + frontId;
         console.log(sumLstFrnt);
 
        
-//------------------------------------------FUNCTION FOR TURNS AND PATHS STARTS--------------------------------
+//---------------------------------------FUNCTION FOR TURNS AND PATHS STARTS--------------------------------
 
         function whosTurn(firstLetter) { 
             // calling functions for individual element movement
@@ -169,7 +172,7 @@ chessBox.forEach((box) => {
     }
 
 
-//**********************************************TOGGLING THE TEXT FOR WHO'S TURN***************************/
+//**************************************TOGGLING THE TEXT FOR WHO'S TURN***************************/
 
         if (tog % 2 !== 0) {
             turnShow.innerText = "White's Turn";
@@ -188,7 +191,7 @@ chessBox.forEach((box) => {
     })
 })
 
-//******************************************FOR PAWN MOVEMENT************************************************* */
+//******************************************FOR PAWN MOVEMENT PATH************************************************* */
 
 function pawnMovement(lastId,frontId,sumLstFrnt,firstLetter,box){
     if (box.innerText == `${firstLetter}pawn`) {
@@ -234,7 +237,7 @@ function pawnMovement(lastId,frontId,sumLstFrnt,firstLetter,box){
         }
     }
 }
-//***********************************************FOR KING MOVEMENT****************************************/
+//***********************************************FOR KING MOVEMENT PATH****************************************/
 
    function kingMovement(lastId,frontId,sumLstFrnt,firstLetter,box){
      if (box.innerText == `${firstLetter}king`) { 
@@ -274,7 +277,7 @@ function pawnMovement(lastId,frontId,sumLstFrnt,firstLetter,box){
 
     }
    }
-//************************************************FOR ROOK MOVEMENT******************************************/
+//************************************************FOR ROOK MOVEMENT PATH******************************************/
 
  function rookMovement(lastId,frontId,sumLstFrnt,firstLetter,box){
     if (box.innerText == `${firstLetter}rook`) {
@@ -329,7 +332,7 @@ function pawnMovement(lastId,frontId,sumLstFrnt,firstLetter,box){
 
  }
 
-//************************************************FOR BISHOP MOVEMENT****************************************/
+//************************************************FOR BISHOP MOVEMENT PATH****************************************/
 
 function bishopMovement(lastId,frontId,sumLstFrnt,firstLetter,box){
     if (box.innerText == `${firstLetter}bishop`) {
@@ -387,7 +390,7 @@ function bishopMovement(lastId,frontId,sumLstFrnt,firstLetter,box){
 
 }
 
-//*********************************************FOR KNIGHT MOVEMENT****************************************/
+//*********************************************FOR KNIGHT MOVEMENT PATH****************************************/
 
 function knightMovement(lastId,frontId,sumLstFrnt,firstLetter,box){
     if (box.innerText == `${firstLetter}knight`) {
@@ -429,7 +432,7 @@ function knightMovement(lastId,frontId,sumLstFrnt,firstLetter,box){
     }
 }
 
-//*****************************************FOR QUEEN MOVEMENT************************************************/
+//*****************************************FOR QUEEN MOVEMENT PATH************************************************/
 
 function queenMovement(lastId,frontId,sumLstFrnt,firstLetter,box){
     if (box.innerText == `${firstLetter}queen`) {
@@ -550,7 +553,9 @@ chessBox.forEach(box => {
                         box2.innerText = pinkText;
                         colorBackground();
                         imageAdd();
+                        if(soundOn.classList.contains("fa-volume-off") && soundOff.classList.contains("display_none")){
                         moveSound.play();
+                        }
                     }
 
                 })

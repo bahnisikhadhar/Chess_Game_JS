@@ -7,20 +7,20 @@
 }
 
 body {
+    width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     overflow-x: hidden;
     background: url(chessBackground.jpeg)no-repeat;
-    background-size: 100%;
+    background-size: 100vw 100vh;
 }
 .head_container{
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: start;
-    gap: 35rem;
+    justify-content: space-between;
 }
 
 .icon_container{
@@ -45,6 +45,22 @@ h1{
     margin-top: 1rem;
     margin-bottom: 1rem;
     font-size: 2.5rem;
+}
+.mute{
+    padding: .7rem 1rem;
+    background-color:rgb(250, 215, 170) ;
+    margin-right: 1rem;
+    border-radius: 10px;
+}
+.mute .fa-solid{
+    font-size: 1rem;
+}
+
+.display_block{
+    display: block;
+}
+.display_none{
+    display: none;
 }
 .turn_container{
     width: 20%;
@@ -98,7 +114,6 @@ img {
     width: 50%;
     height: 50vh;
     border-radius: 10px;
-    /* background-color: white; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -107,4 +122,29 @@ img {
 }
 .heading{
     font-size: 4rem;
+}
+
+
+/* *********************************************************************************************************** */
+
+@media (min-width: 630px) and (max-width:1280px) {
+    .turn_container{
+        width: 40%;
+    }
+}
+@media (min-width: 0px) and (max-width:630px) {
+    .head_container h1{
+        font-size: 2rem;
+    }
+    .chess_box {
+        width: 2.8rem;
+        height: 3rem;
+    }
+    .turn_container{
+        width: 50%;
+    }
+    button{
+        padding: .5rem .7rem;
+    }
+    
 }
