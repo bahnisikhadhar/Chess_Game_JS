@@ -9,6 +9,7 @@ const button = document.querySelector("button");
 const muteContainer = document.querySelector(".mute");
 const soundOn = document.querySelector(".fa-volume-off");
 const soundOff = document.querySelector(".fa-volume-xmark");
+const attackSound = document.querySelector(".attack_sound");
 
 //************************************************GENERAL JS FOR OTHER PARTS***************************************/
 
@@ -87,9 +88,9 @@ function backgroundColorChange() {
 
 
                     greenText = ele2.innerText;
-                    pinkText = ele1.innerText;
+                    yellowText = ele1.innerText;
 
-                    pinkColor = ((Array.from(pinkText)).shift()).toString();
+                    yellowColor = ((Array.from(yellowText)).shift()).toString();
                     greenColor = ((Array.from(greenText)).shift()).toString();
 
                     getId = ele2.id;
@@ -99,19 +100,16 @@ function backgroundColorChange() {
                     frontId = Number(arr.shift());
                     sumLstFrnt = lastId + frontId;
 
-                    if (sumLstFrnt % 2 == 0 && pinkColor == greenColor) {
+                    if (sumLstFrnt % 2 == 0 && yellowColor == greenColor) {
                         ele2.style.backgroundColor = 'rgb(241, 215, 182)';
                     }
-                    if (sumLstFrnt % 2 !== 0 && pinkColor == greenColor) {
+                    if (sumLstFrnt % 2 !== 0 && yellowColor == greenColor) {
                         ele2.style.backgroundColor = 'rgb(104, 62, 7)';
                     }
 
-                    if (pinkColor == greenColor) { // if they are of same team
+                    if (yellowColor == greenColor) { // if they are of same team
                         ele2.style.backgroundColor = 'gray';
                     }
-                    // if (pinkColor !== greenColor) { // if they are of different team
-                    //     ele2.style.backgroundColor = 'red';
-                    // }
                 }
             })
         }
@@ -130,13 +128,13 @@ chessBox.forEach((box) => {
 
         else if (box.style.backgroundColor == 'green' && box.innerText.length !== 0) {
 
-            chessBox.forEach(i => {  // it will also work for attack
+            chessBox.forEach(i => {
                 if (i.style.backgroundColor == 'rgb(240, 240, 65)') {
-                    pinkId = i.id;
-                    pinkText = i.innerText;
+                    yellowId = i.id;
+                    yellowText = i.innerText;
 
-                    document.getElementById(pinkId).innerText = '';
-                    box.innerText = pinkText;
+                    document.getElementById(yellowId).innerText = '';
+                    box.innerText = yellowText;
                     colorBackground();
                     imageAdd();
                     tog = tog + 1;
@@ -542,21 +540,32 @@ chessBox.forEach(box => {
 
         if (box.style.backgroundColor == 'rgb(240, 240, 65)') {
 
-            pinkId = box.id;
-            pinkText = box.innerText;
+            yellowId = box.id;
+            yellowText = box.innerText;
+            // console.log(yellowText.split("").shift());
 
             chessBox.forEach(box2 => {
 
                 box2.addEventListener('click', function () {
+                    // console.log(box2.innerText.split("").shift());
                     if (box2.style.backgroundColor == 'green' && box2.innerText.length == 0) {
-                        document.getElementById(pinkId).innerText = '';
-                        box2.innerText = pinkText;
+                        document.getElementById(yellowId).innerText = '';
+                        box2.innerText = yellowText;
                         colorBackground();
                         imageAdd();
                         if(soundOn.classList.contains("fa-volume-off") && soundOff.classList.contains("display_none")){
                         moveSound.play();
                         }
-                    }
+                     }
+                    // if (box2.innerText.length !== 0 && box2.innerText.split("").shift() !== yellowText.split("").shift() && box2.style.backgroundColor == 'green' ) {
+                    //     document.getElementById(yellowId).innerText = '';
+                    //     box2.innerText = yellowText;
+                    //     colorBackground();
+                    //     imageAdd();
+                    //     if(soundOn.classList.contains("fa-volume-off") && soundOff.classList.contains("display_none")){
+                    //     attackSound.play();
+                    //     }
+                    // }
 
                 })
             })
