@@ -110,7 +110,11 @@ function backgroundColorChange() {
                     if (yellowColor == greenColor) { // if they are of same team
                         ele2.style.backgroundColor = 'gray';
                     }
+                    if (yellowColor !== greenColor) { // if they are of different team
+                        ele2.style.backgroundColor = 'red';
+                    }
                 }
+
             })
         }
     })
@@ -142,6 +146,24 @@ chessBox.forEach((box) => {
                 }
             })
         }
+        else if (box.style.backgroundColor == 'red' && box.innerText.length !== 0){ // for attack
+            chessBox.forEach(i => {
+                if (i.style.backgroundColor == 'rgb(240, 240, 65)') {
+                    yellowId = i.id;
+                    yellowText = i.innerText;
+
+                    document.getElementById(yellowId).innerText = '';
+                    box.innerText = yellowText;
+                    colorBackground();
+                    imageAdd();
+                    if(soundOn.classList.contains("fa-volume-off") && soundOff.classList.contains("display_none")){
+                        attackSound.play();
+                    }
+                    tog = tog + 1;
+
+                }
+            })   
+        }
 
 
         getId = box.id;
@@ -150,15 +172,15 @@ chessBox.forEach((box) => {
         lastId = Number(arr.pop()); 
         arr.push('0');
         frontId = Number(arr.join('')) 
-        console.log(frontId);
+       // console.log(frontId);
         sumLstFrnt = lastId + frontId;
-        console.log(sumLstFrnt);
+        //console.log(sumLstFrnt);
 
        
-//---------------------------------------FUNCTION FOR TURNS AND PATHS STARTS--------------------------------
+//-----------------------------------FUNCTION FOR INDIVIDUAL ELEMENTS' TURNS AND PATHS STARTS--------------------------------
 
         function whosTurn(firstLetter) { 
-            // calling functions for individual element movement
+            
 
         pawnMovement(lastId,frontId,sumLstFrnt,firstLetter,box);
         kingMovement(lastId,frontId,sumLstFrnt,firstLetter,box);  
@@ -302,18 +324,18 @@ function pawnMovement(lastId,frontId,sumLstFrnt,firstLetter,box){
             }
         }
 
-        // for (let i = 1; i < 9; i++) {
+        for (let i = 1; i < 9; i++) { // for white and black horizontal right selection
 
-        //     if ((sumLstFrnt + i) < (frontId + 9) && document.getElementById(`b${sumLstFrnt + i}`).innerText == 0) {
-        //         document.getElementById(`b${sumLstFrnt + i}`).style.backgroundColor = 'green'
-        //     }
-        //     else if ((sumLstFrnt + i) < (frontId + 9) && document.getElementById(`b${sumLstFrnt + i}`).innerText !== 0) {
-        //         document.getElementById(`b${sumLstFrnt + i}`).style.backgroundColor = 'green'
-        //         break
-        //     }
-        // }
+            if ((sumLstFrnt + i) < (frontId + 9) && document.getElementById(`b${sumLstFrnt + i}`).innerText == 0) {
+                document.getElementById(`b${sumLstFrnt + i}`).style.backgroundColor = 'green'
+            }
+            else if ((sumLstFrnt + i) < (frontId + 9) && document.getElementById(`b${sumLstFrnt + i}`).innerText !== 0) {
+                document.getElementById(`b${sumLstFrnt + i}`).style.backgroundColor = 'green'
+                break
+            }
+        }
 
-        for (let i = 1; i < 9; i++) { // for white and black horizontal selection
+        for (let i = 1; i < 9; i++) { // for white and black horizontal left selection
 
             if ((sumLstFrnt - i) > (frontId) && document.getElementById(`b${sumLstFrnt - i}`).innerText == 0) {
                 document.getElementById(`b${sumLstFrnt - i}`).style.backgroundColor = 'green';
@@ -542,12 +564,10 @@ chessBox.forEach(box => {
 
             yellowId = box.id;
             yellowText = box.innerText;
-            // console.log(yellowText.split("").shift());
 
             chessBox.forEach(box2 => {
 
                 box2.addEventListener('click', function () {
-                    // console.log(box2.innerText.split("").shift());
                     if (box2.style.backgroundColor == 'green' && box2.innerText.length == 0) {
                         document.getElementById(yellowId).innerText = '';
                         box2.innerText = yellowText;
@@ -557,15 +577,6 @@ chessBox.forEach(box => {
                         moveSound.play();
                         }
                      }
-                    // if (box2.innerText.length !== 0 && box2.innerText.split("").shift() !== yellowText.split("").shift() && box2.style.backgroundColor == 'green' ) {
-                    //     document.getElementById(yellowId).innerText = '';
-                    //     box2.innerText = yellowText;
-                    //     colorBackground();
-                    //     imageAdd();
-                    //     if(soundOn.classList.contains("fa-volume-off") && soundOff.classList.contains("display_none")){
-                    //     attackSound.play();
-                    //     }
-                    // }
 
                 })
             })
