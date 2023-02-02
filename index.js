@@ -4,6 +4,7 @@ const winboxWhite = document.querySelector(".winbox_container_white");
 const winboxBlack = document.querySelector(".winbox_container_black");
 const moveSound = document.querySelector(".move_sound");
 const winSound = document.querySelector(".win_sound");
+const wrongAlert = document.querySelector(".wrong_select");
 const turnShowContainer = document.querySelector(".turn_container");
 const button = document.querySelector("button");
 const muteContainer = document.querySelector(".mute");
@@ -196,12 +197,40 @@ chessBox.forEach((box) => {
 
         if (tog % 2 !== 0) {
             turnShow.innerText = "White's Turn";
+            // chessBox.forEach((box)=>{
+            //     box.addEventListener("click",(event)=>{
+            //        console.log(box.innerText.split("").splice(0,1));
+            //       if(tog % 2 !== 0 && box.innerText.split("").splice(0,1)=="B"){
+            //         wrongAlert.play();
+            //       }
+            //     })
+            // })
             turnShowContainer.style.backgroundColor = "burlywood";
+            turnShowContainer.style.transform = "scale(1.2)";
+            turnShow.style.transform = "scale(1.6)";
+            setTimeout(()=>{
+                turnShowContainer.style.transform = "scale(1)";
+                turnShow.style.transform = "scale(1)";
+            },1000);
             whosTurn("W");
         } else {
             turnShow.innerText = "Black's Turn";
+            // chessBox.forEach((box)=>{
+            //     box.addEventListener("click",(event)=>{
+            //        console.log(box.innerText.split("").splice(0,1));
+            //       if(tog % 2 == 0 && box.innerText.split("").splice(0,1)=="W"){
+            //         wrongAlert.play();
+            //       }
+            //     })
+            // })
             turnShowContainer.style.backgroundColor = "black";
             turnShowContainer.style.color = "white";
+            turnShowContainer.style.transform = "scale(1.2)";
+            turnShow.style.transform = "scale(1.6)";
+            setTimeout(()=>{
+                turnShowContainer.style.transform = "scale(1)";
+                turnShow.style.transform = "scale(1)";
+            },1000);
             whosTurn("B");
         }
 
