@@ -14,7 +14,7 @@ body {
     flex-direction: column;
     overflow-x: hidden;
     background: url(./Images/chessBackground.jpeg)no-repeat;
-    background-size: 100vw 100vh;
+    background-size: 100vw auto;
 }
 .head_container{
     width: 100%;
